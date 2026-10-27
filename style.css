@@ -1,0 +1,23 @@
+:root{--bg:#f3f1e8;--ink:#14263f;--line:#c9d3df;--acc:#f2b705;--card:#fff;--ok:#1f8a4c;--bad:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1b2d;--ink:#e8eef6;--line:#2a3d57;--card:#16263d}}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Gujarati","Shruti",system-ui,sans-serif;background:var(--bg);color:var(--ink);
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-attachment:fixed}
+header{padding:18px 22px;border-bottom:4px solid var(--acc);background:var(--card)}h1{margin:0;font-size:1.6rem}header p{margin:4px 0 0;opacity:.75}
+.wrap{display:flex;gap:16px;padding:16px;align-items:flex-start}
+nav{width:290px;flex:none;max-height:calc(100vh - 110px);overflow:auto;position:sticky;top:12px;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:6px}
+nav button{display:flex;gap:8px;width:100%;text-align:left;border:0;background:none;color:inherit;font:inherit;padding:7px 8px;cursor:pointer;border-radius:4px}
+nav button:hover{background:var(--line)}nav button.on{background:var(--ink);color:var(--bg)}nav b{width:24px;opacity:.6}nav i{margin-left:auto;font-style:normal}
+main{flex:1;min-width:0;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:20px}
+h2{margin-top:0}.pts li{margin:6px 0}.lab{border:2px dashed var(--ink);border-radius:6px;padding:14px;margin:16px 0}
+.ctl{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;margin:8px 0}input[type=range]{width:100%;accent-color:var(--acc)}
+.out{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.out div{background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:4px}.out strong{color:var(--acc);font-size:1.2rem}
+canvas{width:100%;max-width:640px;height:220px;display:block;margin-top:12px;border:1px solid var(--line);background:var(--bg)}
+.q{margin:12px 0}.q button{display:block;margin:5px 0;padding:8px 12px;font:inherit;border:2px solid var(--ink);background:none;color:inherit;border-radius:4px;cursor:pointer;text-align:left}
+.q button.ok{background:var(--ok);color:#fff}.q button.bad{background:var(--bad);color:#fff}
+@media(max-width:800px){.wrap{flex-direction:column}nav{width:100%;position:static;max-height:240px}.ctl{grid-template-columns:1fr 1fr 60px}}
+#sc{max-width:none;height:auto;aspect-ratio:2/1;background:#0d1b2a;border:2px solid var(--ink);border-radius:6px;cursor:pointer}
+.hint{font-size:.85rem;opacity:.7;margin:6px 0}.out div.bad{background:var(--bad)}.out em{font-style:normal;font-size:.85rem;margin-left:4px}.u{color:#ffb86b}.d{color:#7ecbff}
+.tabs{display:flex;gap:6px;margin:10px 0}.tabs button{flex:1;padding:9px;font:inherit;border:2px solid var(--ink);background:none;color:inherit;border-radius:4px;cursor:pointer}.tabs .on{background:var(--ink);color:var(--bg)}
+#th{font-size:1.1rem;line-height:1.8;border-left:6px solid var(--acc);padding:8px 16px;background:var(--bg)}[hidden]{display:none!important}
+.fc{border:2px solid var(--ink);border-radius:6px;padding:12px;margin:12px 0}.fc h4{margin:0 0 6px}.fc code{display:block;background:var(--ink);color:var(--acc);padding:6px 10px;border-radius:4px}
+.fin{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.fin label{display:flex;flex-direction:column;font-size:.85rem}.fin input{width:110px;padding:4px;font:inherit}.fr{font-size:1.2rem;font-weight:700;margin:6px 0}.fc canvas{background:#0d1b2a;max-width:360px;height:120px}
