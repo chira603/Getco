@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="gu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maintenance Electrical Assistant – Mock Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--tx:#172033;--mut:#5b667c;--bd:#dde3ef;--pri:#2557d6;--priT:#fff;--ok:#12805c;--okB:#dff5ec;--bad:#c62f3a;--badB:#fde6e8;--warn:#b26a00;--warnB:#fff1d6;--rev:#7c3aed;--revB:#efe6fd;--sh:0 2px 10px rgba(20,30,60,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Noto Sans Gujarati',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.6}
+button{font:inherit;cursor:pointer}
+.hide{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--sh)}
+.btn{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:10px 18px;border-radius:10px;font-weight:500;transition:.15s}
+.btn:hover{border-color:var(--pri)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.pri{background:var(--pri);color:var(--priT);border-color:var(--pri)}
+.btn.rev{background:var(--revB);color:var(--rev);border-color:var(--rev)}
+.btn.bad{color:var(--bad);border-color:var(--bad)}
+.btn.big{padding:14px 34px;font-size:1.1rem}
+/* start */
+#start .card{padding:28px;margin-top:20px}
+#start h1{margin:0 0 4px;font-size:1.7rem}.sub{color:var(--mut);margin:0 0 18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:18px 0}
+.stat{background:var(--bg);border-radius:10px;padding:12px;text-align:center}.stat b{display:block;font-size:1.5rem;color:var(--pri)}.stat span{color:var(--mut);font-size:.85rem}
+#start ul{padding-left:20px;color:var(--tx)}#start li{margin:5px 0}
+input#nm{width:100%;max-width:360px;padding:11px 14px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin:8px 0 18px}
+/* test */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.top h2{margin:0;font-size:1rem}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.3rem;padding:6px 16px;border-radius:10px;background:var(--okB);color:var(--ok)}
+.timer.low{background:var(--warnB);color:var(--warn)}.timer.crit{background:var(--badB);color:var(--bad);animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.55}}
+.layout{display:grid;grid-template-columns:1fr 310px;gap:16px;margin-top:16px}
+@media(max-width:860px){.layout{grid-template-columns:1fr}}
+.q{padding:22px}.qh{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem;margin-bottom:10px}
+.qt{font-size:1.15rem;font-weight:500;margin:0 0 16px;white-space:pre-line}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:13px 14px;margin:9px 0;border:1.5px solid var(--bd);border-radius:11px;background:var(--card);color:var(--tx)}
+.opt:hover{border-color:var(--pri)}
+.opt .k{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--bd);display:grid;place-items:center;font-weight:700;font-size:.9rem}
+.opt.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 10%,var(--card))}.opt.sel .k{background:var(--pri);color:var(--priT);border-color:var(--pri)}
+.opt.ok{border-color:var(--ok);background:var(--okB)}.opt.ok .k{background:var(--ok);color:var(--priT);border-color:var(--ok)}
+.opt.no{border-color:var(--bad);background:var(--badB)}.opt.no .k{background:var(--bad);color:var(--priT);border-color:var(--bad)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--bd)}.acts .sp{flex:1}
+.pal{padding:16px;align-self:start;position:sticky;top:calc(70px + env(safe-area-inset-top,0px))}
+.pal h3{margin:0 0 10px;font-size:1rem}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.n{aspect-ratio:1;border:1.5px solid var(--bd);border-radius:9px;background:var(--card);color:var(--tx);font-weight:600;font-size:.9rem;padding:0}
+.n.ans{background:var(--ok);color:var(--priT);border-color:var(--ok)}.n.seen{background:var(--badB);border-color:var(--bad);color:var(--bad)}
+.n.mk{background:var(--rev);color:var(--priT);border-color:var(--rev)}.n.cur{outline:3px solid var(--pri);outline-offset:1px}
+.n.c{background:var(--ok);color:var(--priT);border-color:var(--ok)}.n.w{background:var(--bad);color:var(--priT);border-color:var(--bad)}.n.s{background:var(--bg);color:var(--mut)}
+.leg{display:flex;flex-wrap:wrap;gap:8px 14px;margin:14px 0;font-size:.8rem;color:var(--mut)}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1.5px solid var(--bd)}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(5,10,25,.6);display:grid;place-items:center;z-index:20;padding:16px}
+.md{padding:24px;max-width:440px;width:100%}.md h3{margin:0 0 8px}.md .r{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.sum{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:12px 0}.sum span{color:var(--mut)}
+/* result */
+.hero{padding:26px;display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.ring{--p:0;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--bd) 0);display:grid;place-items:center}
+.ring div{width:118px;height:118px;border-radius:50%;background:var(--card);display:grid;place-items:center;text-align:center;line-height:1.15}.ring b{font-size:2rem}.ring small{color:var(--mut)}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;flex:1;min-width:260px}
+.kp .stat b{color:var(--tx)}.kp .g b{color:var(--ok)}.kp .r b{color:var(--bad)}.kp .y b{color:var(--warn)}
+.sec{padding:20px;margin-top:16px}.sec h3{margin:0 0 12px}
+.bars{display:grid;gap:12px}.bar .l{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:4px}.tr{height:12px;border-radius:8px;background:var(--bd);overflow:hidden}.tr i{display:block;height:100%}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs .btn.on{background:var(--pri);color:var(--priT);border-color:var(--pri)}
+.rq{padding:18px;margin-bottom:14px}.rq .qt{font-size:1.05rem}
+.tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:600;margin-left:8px}.tag.c{background:var(--okB);color:var(--ok)}.tag.w{background:var(--badB);color:var(--bad)}.tag.s{background:var(--warnB);color:var(--warn)}
+.note{background:var(--warnB);color:var(--warn);padding:10px 14px;border-radius:10px;font-size:.9rem;margin-top:8px}
+.opt.static{cursor:default}
+</style></head><body>
+
+<section id="start" class="wrap"><div class="card">
+<h1>⚡ Maintenance Electrical Assistant – Mock Test</h1>
+<p class="sub">100 MCQ • ગુજરાતી • જવાબો અને ટૂંકા ઉકેલ સાથે</p><div id="avail" class="stat" style="margin:0 0 14px;text-align:left"></div>
+<div class="stats"><div class="stat"><b>100</b><span>પ્રશ્નો</span></div><div class="stat"><b>1:40:00</b><span>સમય (કલાક)</span></div><div class="stat"><b>1</b><span>ગુણ પ્રતિ પ્રશ્ન</span></div><div class="stat"><b>0</b><span>નેગેટિવ માર્કિંગ</span></div></div>
+<ul>
+<li>“ટેસ્ટ શરૂ કરો” દબાવતાં જ 100 મિનિટનો ટાઇમર શરૂ થશે.</li>
+<li>જવાબ પસંદ કરી <b>સેવ અને આગળ</b> દબાવો; જવાબ સાફ કરવા <b>Clear</b> વાપરો.</li>
+<li><b>Mark for Review</b> થી શંકાસ્પદ પ્રશ્નો ચિહ્નિત કરો; જમણી પેલેટથી કોઈપણ પ્રશ્ન પર જાઓ.</li>
+<li>સમય પૂરો થતાં ટેસ્ટ આપમેળે સબમિટ થશે. કીબોર્ડ: ← → (પ્રશ્ન), 1–4 (વિકલ્પ).</li>
+</ul>
+<label for="nm"><b>તમારું નામ</b> (વૈકલ્પિક)</label><br>
+<input id="nm" placeholder="તમારું નામ લખો" maxlength="40"><br>
+<button class="btn pri big" id="go" disabled>▶ ટેસ્ટ શરૂ કરો</button>
+</div></section>
+
+<section id="test" class="hide">
+<div class="top"><h2>Maintenance Electrical Assistant</h2><div class="timer" id="tm">01:40:00</div><button class="btn pri" id="sub">Submit Test</button></div>
+<div class="wrap"><div class="layout">
+<div class="card q" id="qc"></div>
+<aside class="card pal"><h3>પ્રશ્ન પેલેટ</h3><div class="grid" id="pg"></div>
+<div class="leg"><span><i style="background:var(--ok)"></i>જવાબ આપ્યો</span><span><i style="background:var(--badB);border-color:var(--bad)"></i>જવાબ નથી</span><span><i style="background:var(--rev)"></i>Review</span><span><i></i>ન જોયો</span></div>
+<div class="sum" id="ps"></div></aside>
+</div></div></section>
+
+<section id="res" class="hide wrap"></section>
+<div id="modal" class="ov hide"><div class="card md" id="mb"></div></div>
+
+<script>
+const RAW=`પ્રતિરોધનું SI એકમ શું છે?|વોલ્ટ|ઓહ્મ|વોટ|ફેરાડ|2|પ્રતિરોધ (R) નું એકમ ઓહ્મ (Ω) છે. વોલ્ટ=વોલ્ટેજ, વોટ=પાવર, ફેરાડ=કેપેસિટન્સ.
+ટ્રાન્સફોર્મરમાં ઊર્જા સ્થાનાંતરણ કયા સિદ્ધાંત પર આધારિત છે?|ઇલેક્ટ્રોસ્ટેટિક ઇન્ડક્શન|ઇલેક્ટ્રોમેગ્નેટિક ઇન્ડક્શન|મ્યુચ્યુઅલ કેપેસિટન્સ|ડાયરેક્ટ કન્ડક્શન|2|બદલાતા ફ્લક્સથી બીજી કોઇલમાં EMF પ્રેરાય છે (ફેરાડેનો નિયમ) – મ્યુચ્યુઅલ ઇન્ડક્શન.
+Direct Measurement Methodનું ઉદાહરણ કયું છે?|વર્નિયર દ્વારા લંબાઈ માપવી|મલ્ટિમીટર વડે વોલ્ટેજ અને કરંટ માપવો|વ્હીટસ્ટોન બ્રિજ વડે પ્રતિરોધ માપવો|CRO વડે તરંગાકૃતિનું વિશ્લેષણ કરવું|1|રાશિને સીધી પ્રમાણિત માપપટ્ટી/સાધન સાથે સરખાવવી એ ડાયરેક્ટ મેથડ છે; આપેલ ચાવી મુજબ વર્નિયર.
+ડિજિટલ મલ્ટિમીટરનો મુખ્ય લાભ શું છે?|ઓછી ચોકસાઈ|વધુ ચોકસાઈ અને સરળ વાંચન|વધુ વીજ વપરાશ|માત્ર AC માપે છે|2|ડિજિટલ ડિસ્પ્લેથી સીધું આંકડાકીય વાંચન મળે છે, parallax error નથી, ચોકસાઈ વધુ.
+અર્થિંગનો મુખ્ય હેતુ શું છે?|વોલ્ટેજ વધારવો|કરંટ ઘટાડવો|વીજ આંચકાથી સુરક્ષા આપવી|શક્તિ વધારવી|3|લીકેજ/ફોલ્ટ કરંટને ધરતીમાં વાળી માણસ અને સાધનને સુરક્ષિત રાખે છે.
+Moving Iron Instrument દ્વારા કયા પ્રકારનો કરંટ માપી શકાય છે?|માત્ર AC|માત્ર DC|AC અને DC બંને|માત્ર RF સિગ્નલ|3|MI સાધનનું ડિફ્લેક્શન I² ના પ્રમાણમાં હોવાથી ધ્રુવીયતા પર આધારિત નથી – AC અને DC બંને માપે.
+અલ્ટરનેટરનું પાવર ફેક્ટર સુધારવા માટે શું વપરાય છે?|ઇન્ડક્ટર|રેઝિસ્ટર|કેપેસિટર|ટ્રાન્સફોર્મર|3|ઇન્ડક્ટિવ લોડનો લેગિંગ કરંટ કેપેસિટર (લીડિંગ કરંટ) વડે સરભર થાય છે.
+ટ્રાન્સફોર્મરમાં કોર લોસ મુખ્યત્વે કયા કારણે થાય છે?|કોપર લોસ|મિકેનિકલ ઘર્ષણ|એડી કરંટ લોસ અને હિસ્ટેરિસિસ લોસ|લોડ રેઝિસ્ટન્સ|3|કોર લોસ = એડી કરંટ + હિસ્ટેરિસિસ લોસ (લોડથી સ્વતંત્ર). કોપર લોસ વાઇન્ડિંગમાં થાય.
+સ્ટ્રીટ લાઇટિંગમાં સામાન્ય રીતે કયું કનેક્શન ઉપયોગમાં લેવાય છે?|સીરિઝ કનેક્શન|પેરેલલ કનેક્શન|મિક્સ કનેક્શન|ઓપન સર્કિટ|2|પેરેલલમાં દરેક લાઇટને પૂરો વોલ્ટેજ મળે અને એક બળે તો બીજી ચાલુ રહે.
+જો રેઝિસ્ટન્સ સ્થિર રહે અને કરંટ બમણો થાય, તો વોલ્ટેજ શું થશે?|એ જ રહેશે|બમણું થશે|અડધું થશે|શૂન્ય થશે|2|V = IR; R સ્થિર, I બમણો ⇒ V બમણો.
+ઘરેલું વાયરિંગમાં ડિસ્ટ્રિબ્યુશન બોર્ડમાં MCB સાથે કયું ઉપકરણ સામાન્ય રીતે લગાવવામાં આવે છે?|ટ્રાન્સફોર્મર|RCCB|ઇન્ડક્ટર|કેપેસિટર|2|MCB ઓવરલોડ/શોર્ટ સામે, RCCB અર્થ લીકેજ સામે રક્ષણ આપે છે.
+Star-Delta Starterનો મુખ્ય હેતુ શું છે?|ગતિ વધારવી|પ્રારંભિક કરંટ ઘટાડવો|વોલ્ટેજ વધારવું|આવર્તન વધારવી|2|સ્ટાર માં ફેઝ વોલ્ટેજ 1/√3 થતાં સ્ટાર્ટિંગ કરંટ DOLના લગભગ 1/3 થાય.
+એક Resistive Heater 1.5 kW પાવર વાપરે છે. જો તે 4 કલાક ચાલે, તો ઊર્જા વપરાશ કેટલો થશે?|8 kWh|6 kWh|3.8 kWh|4 kWh|2|E = P × t = 1.5 × 4 = 6 kWh.
+ડી.સી. મોટરમાં એડજસ્ટેબલ રેઝિસ્ટન્સનું મુખ્ય કાર્ય શું છે?|ઘર્ષણ ઘટાડવું|કુલિંગ સિસ્ટમ|ફિલ્ડ કરંટ ઘટાડવો|લુબ્રિકેશન|3|ફિલ્ડ રિઓસ્ટેટ ફિલ્ડ કરંટ બદલી ફ્લક્સ/સ્પીડ નિયંત્રિત કરે (આપેલ ચાવી મુજબ).
+સર્કિટ બ્રેકર ક્યારે ઓપરેટ થાય છે?|ફોલ્ટ કન્ડિશનમાં|નોર્મલ લોડ કન્ડિશનમાં|નો-લોડ કન્ડિશનમાં|ફ્રિક્વન્સી બદલવામાં|1|ફોલ્ટ (ઓવરકરંટ/શોર્ટ) થતાં રિલે સિગ્નલથી બ્રેકર ટ્રિપ થઈ સર્કિટ તોડે છે.
+મ્યુનિસિપલ કોર્પોરેશનની આવકનો મુખ્ય સ્ત્રોત કયો છે?|આવકવેરો|મિલકત વેરો (Property Tax)|GST|કસ્ટમ ડ્યુટી|2|સ્થાનિક સંસ્થાની મુખ્ય આવક મિલકત વેરો છે; આવકવેરો/GST/કસ્ટમ કેન્દ્ર-રાજ્યને મળે.
+લાઇટનિંગ એરેસ્ટરનો મુખ્ય હેતુ શું છે?|વોલ્ટેજ રેગ્યુલેશન|ઓવરવોલ્ટેજ પ્રોટેક્શન|ફ્રિક્વન્સી કંટ્રોલ|કરંટ માપવું|2|વીજળી/સ્વિચિંગ સર્જને ધરતીમાં વાળી સાધનોને ઓવરવોલ્ટેજથી બચાવે.
+વિદ્યુત ઊર્જાનું સૂત્ર કયું છે?|E = Pt|E = IR|E = V/R|E = I²|1|ઊર્જા = પાવર × સમય.
+ડી.સી. મોટરના પેરેલલ ઓપરેશન માટે જરૂરી મુખ્ય શરત કઈ છે?|સમાન વોલ્ટેજ, ફ્રિક્વન્સી અને ફેઝ સિક્વન્સ|સમાન ઘર્ષણ પ્રકાર|સમાન કુલિંગ સિસ્ટમ|સમાન kVA રેટિંગ|1|આપેલ ચાવી મુજબ A. (નોંધ: ફ્રિક્વન્સી/ફેઝ સિક્વન્સ ખરેખર અલ્ટરનેટરના પેરેલલ ઓપરેશનની શરતો છે.)
+DOL Starterમાં Overload Relayનું કાર્ય શું છે?|વોલ્ટેજ વધારવું|મોટરને ઓવરલોડથી સુરક્ષા આપવી|ગતિ વધારવી|આવર્તન નિયંત્રિત કરવું|2|વધુ કરંટ લાંબો સમય રહે તો રિલે ટ્રિપ થઈ મોટરને બળતી બચાવે.
+કયા કેબલનો ઉપયોગ RF સિગ્નલ માટે થાય છે?|PVC Cable|Coaxial Cable|VIR Cable|TRS Cable|2|કોએક્સિયલ કેબલ શિલ્ડેડ હોવાથી હાઈ-ફ્રિક્વન્સી/RF સિગ્નલ માટે યોગ્ય.
+એક નોડમાં ત્રણ કરંટ પ્રવેશે છે: 2 A, 3 A અને X. જો બહાર નીકળતો કરંટ 6 A હોય, તો X કેટલો હશે?|1 A|2 A|3 A|6 A|1|KCL: અંદર = બહાર ⇒ 2+3+X = 6 ⇒ X = 1 A.
+અલ્ટરનેટરની ફ્રિક્વન્સી કયા પર આધારિત છે?|સ્પીડ અને પોલની સંખ્યા પર|વોલ્ટેજ પર|કરંટ પર|રેઝિસ્ટન્સ પર|1|f = P·N/120.
+ડી.સી. મોટરમાં પ્રારંભિક કરંટ નિયંત્રિત કરવા માટે શું વપરાય છે?|સ્ટેપ બેરિંગ|કંટ્રોલ રેઝિસ્ટન્સ|ગ્રીસ બેરિંગ|વોટર બેરિંગ|2|સ્ટાર્ટિંગમાં Eb=0 હોવાથી કરંટ ખૂબ વધે; સ્ટાર્ટર રેઝિસ્ટન્સ શ્રેણીમાં જોડી મર્યાદિત કરાય.
+ફ્યુઝ વાયર સામાન્ય રીતે કયા ધાતુથી બનેલો હોય છે?|એલ્યુમિનિયમ|સ્ટીલ|ટીન-લેડ એલોય|કોપર|3|ટીન-લેડ એલોયનું ગલનબિંદુ નીચું હોવાથી વધુ કરંટે ઝડપથી ઓગળે.
+એક 400 V મોટરનું ફુલ-લોડ કરંટ 60 A છે. જો હાલ કરંટ 30 A હોય, તો મોટરની સ્થિતિ શું કહેવાય?|નોર્મલ|ઓવરલોડ|અન્ડરલોડ|કંટ્રોલ અન્ડરલોડિંગ|2|આપેલ ચાવી B છે. ⚠ નોંધ: 30 A < 60 A ફુલ-લોડ, એટલે તકનીકી રીતે અન્ડરલોડ (C) વધુ સાચું લાગે.
+શક્તિ ગુણાંક (Power Factor) = 1 હોય ત્યારે સર્કિટ કેવી હોય છે?|સંપૂર્ણ પ્રતિરોધક|સંપૂર્ણ ઇન્ડક્ટિવ|સંપૂર્ણ કેપેસિટિવ|મિશ્રિત|1|PF = cosφ = 1 ⇒ φ = 0°, કરંટ-વોલ્ટેજ સમકક્ષ ⇒ શુદ્ધ રેઝિસ્ટિવ.
+વિદ્યુત અકસ્માત ટાળવા માટે સૌપ્રથમ શું કરવું જોઈએ?|વાયરને સ્પર્શ કરવો|મુખ્ય વીજ પુરવઠો બંધ કરવો|ફ્યુઝ બદલવો|મોટર ખોલવી|2|કામ પહેલાં સપ્લાય બંધ (isolate) કરવો એ પ્રથમ સુરક્ષા પગલું.
+શન્ટનો ઉપયોગ મુખ્યત્વે શા માટે થાય છે?|વોલ્ટમીટરની રેન્જ વધારવા|એમીટરની રેન્જ વધારવા|વોટમીટરની ચોકસાઈ વધારવા|આવર્તન માપવા|2|શન્ટ (ઓછો R) એમીટરને સમાંતર જોડાય, વધારાનો કરંટ વાળે ⇒ રેન્જ વધે. (વોલ્ટમીટર માટે મલ્ટિપ્લાયર.)
+ઇન્સ્યુલેટેડ સાધનોનો ઉપયોગ શા માટે કરવામાં આવે છે?|ઝડપ વધારવા|વીજ આંચકાથી બચવા|વજન ઘટાડવા|ખર્ચ ઘટાડવા|2|ઇન્સ્યુલેશન હાથ અને જીવંત ભાગ વચ્ચે અવરોધ બને છે.
+વિદ્યુત શક્તિ માપવાનું સૂત્ર કયું છે?|P = VI|P = V/I|P = I/R|P = VR|1|DC પાવર P = V × I (= I²R = V²/R).
+Star-Delta Starter સામાન્ય રીતે કયા પ્રકારના મોટર માટે વપરાય છે?|Single Phase Motor|Slip Ring Motor|Three Phase Squirrel Cage Induction Motor|Universal Motor|3|સ્ટેટરના 6 ટર્મિનલ બહાર હોય તેવી 3-ફેઝ સ્ક્વિરલ કેજ મોટરમાં વપરાય.
+કિર્ચોફનો પ્રવાહ નિયમ (KCL) કયા સિદ્ધાંત પર આધારિત છે?|ઊર્જા સંરક્ષણ|વોલ્ટેજ સંરક્ષણ|પાવર સંરક્ષણ|વિદ્યુતભાર સંરક્ષણ|4|નોડમાં ચાર્જ જમા થતો નથી ⇒ અંદર આવતો = બહાર જતો કરંટ. (KVL ઊર્જા સંરક્ષણ પર.)
+LOTO (Lock Out Tag Out) પ્રક્રિયાનો મુખ્ય હેતુ શું છે?|મશીનની ઝડપ વધારવી|જાળવણી દરમિયાન અકસ્માત અટકાવવો|વીજળી બચાવવી|ઉત્પાદન વધારવું|2|મેઇન્ટેનન્સ વખતે મશીન અચાનક ચાલુ ન થાય તે માટે લોક અને ટેગ લગાવાય.
+ઇન્ડસ્ટ્રિયલ વાયરિંગમાં કેબલ ટ્રેનો ઉપયોગ શા માટે થાય છે?|કેબલને સપોર્ટ અને વ્યવસ્થિત રાખવા|વોલ્ટેજ નિયંત્રણ કરવા|ફ્રિક્વન્સી બદલવા|પાવર ફેક્ટર સુધારવા|1|કેબલ ટ્રે કેબલનો ભાર ઝીલે, ગોઠવણી અને ઠંડક આપે.
+ઓહ્મનો નિયમ કોના સંબંધને દર્શાવે છે?|શક્તિ અને ઊર્જા|વોલ્ટેજ, કરંટ અને પ્રતિરોધ|આવર્તન અને સમય|ચાર્જ અને દબાણ|2|V = IR (તાપમાન સ્થિર હોય ત્યારે).
+મોટર પ્રિવેન્ટિવ મેઇન્ટેનન્સમાં બેરિંગ ફેરવવા અથવા ચકાસવા માટે શું જરૂરી છે?|વોલ્ટેજ રેગ્યુલેશન|યોગ્ય લુબ્રિકેશન|ફ્રિક્વન્સી કંટ્રોલ|લોડ ઘટાડવો|2|યોગ્ય ગ્રીસ/ઓઇલ ઘસારો અને ગરમી ઘટાડી બેરિંગની આવરદા વધારે.
+વોલ્ટમીટરનું આંતરિક પ્રતિરોધ કેવું હોવું જોઈએ?|ખૂબ ઓછું|ખૂબ વધારે|શૂન્ય|મધ્યમ|2|સમાંતર જોડાતું હોવાથી સર્કિટમાંથી ઓછો કરંટ ખેંચે તે માટે R ખૂબ ઊંચો.
+Multiplierનો ઉપયોગ કયા સાધનમાં થાય છે?|એમીટર|વોલ્ટમીટર|વોટમીટર|મલ્ટિમીટર|2|વોલ્ટમીટર સાથે શ્રેણીમાં ઊંચો R જોડી વોલ્ટેજ રેન્જ વધારાય.
+Holding Contactનો ઉપયોગ શા માટે થાય છે?|રિલે બંધ કરવા|Start Push Button છોડ્યા પછી પણ Contactor ON રાખવા|ફ્યુઝ બચાવવા|મોટરની ગતિ ઘટાડવા|2|Contactorનો NO ઓક્ઝિલરી સંપર્ક Start બટનને સમાંતર હોઈ સીલ-ઇન (latch) કરે.
+RCCBનું મુખ્ય કાર્ય શું છે?|વોલ્ટેજ નિયંત્રિત કરવું|અર્થ લીકેજથી સુરક્ષા આપવી|કરંટ વધારવો|શક્તિ વધારવી|2|ફેઝ અને ન્યુટ્રલ કરંટનો તફાવત (લીકેજ) મિલીએમ્પ સ્તરે ઓળખી ટ્રિપ થાય.
+પ્લેટ અર્થિંગ માટે પ્લેટ સામાન્ય રીતે કયા મટિરિયલની બનેલી હોય છે?|એલ્યુમિનિયમ|કોપર અથવા ગેલ્વેનાઇઝ્ડ આયર્ન|લેડ|સિલ્વર|2|કોપર (કે GI) પ્લેટ જમીનમાં દાટાય – સારી વાહકતા અને કાટ-પ્રતિકાર.
+વીજ આગ બુઝાવવા માટે કયા પ્રકારનું અગ્નિશામક યોગ્ય છે?|પાણી|CO₂ અગ્નિશામક|રેતી|ફોમ|2|CO₂ બિન-વાહક છે અને અવશેષ છોડતું નથી; પાણી/ફોમ વાહક હોવાથી જોખમી.
+ઊર્જા વપરાશ માપવા માટે કયું સાધન વપરાય છે?|વોલ્ટમીટર|એમીટર|એનર્જી મીટર|ઓહ્મમીટર|3|એનર્જી મીટર kWh માં ઊર્જા નોંધે છે.
+Star-Delta Starterમાં Timerનો ઉપયોગ શા માટે થાય છે?|ગતિ વધારવા|Starથી Deltaમાં આપમેળે બદલવા|કરંટ માપવા|વોલ્ટેજ ઘટાડવા|2|સેટ સમય (મોટર સ્પીડ પકડે) પછી ટાઇમર સ્ટારથી ડેલ્ટા ચેન્જઓવર કરે.
+મ્યુનિસિપલ કોર્પોરેશનનું મુખ્ય કાર્ય શું છે?|રાજ્યનું શાસન|સ્થાનિક સ્વરાજ્ય અને નાગરિક સેવાઓ પૂરી પાડવી|સંસદ ચલાવવી|ન્યાય આપવો|2|શહેરમાં પાણી, સફાઈ, રસ્તા, સ્ટ્રીટ લાઇટ જેવી સેવાઓ આપવી.
+અર્થિંગ સિસ્ટમમાં 'ટચ પોટેન્શિયલ' શું દર્શાવે છે?|બે ફેઝ વચ્ચેનું વોલ્ટેજ|બે કન્ડક્ટર વચ્ચેનું વોલ્ટેજ|હાથ અને ગ્રાઉન્ડ વચ્ચેનું વોલ્ટેજ|બે ટ્રાન્સફોર્મર વચ્ચેનું વોલ્ટેજ|3|ફોલ્ટ વખતે ઉપકરણને સ્પર્શતા હાથ અને પગ/જમીન વચ્ચે લાગતો વોલ્ટેજ.
+ડિસ્ટ્રિબ્યુશન ટ્રાન્સફોર્મરમાં સામાન્ય રીતે કયા પ્રકારનું ટ્રાન્સફોર્મર હોય છે?|સ્ટેપ-અપ ટ્રાન્સફોર્મર|આઇસોલેશન ટ્રાન્સફોર્મર|ઓટો ટ્રાન્સફોર્મર|સ્ટેપ-ડાઉન ટ્રાન્સફોર્મર|4|ડિસ્ટ્રિબ્યુશનમાં 11 kV/22 kV ને 415/230 V માં ઉતારાય ⇒ સ્ટેપ-ડાઉન.
+જો 230 V સપ્લાયમાં વ્યક્તિને વીજ આંચકો લાગે તો પ્રથમ સહાય શું છે?|પાણી રેડવું|લાકડાના અથવા ઇન્સ્યુલેટેડ સાધનથી વ્યક્તિને અલગ કરવી|ધક્કો મારવો|કપડાં ખેંચવા|2|પહેલા સપ્લાય બંધ કરો, ન થાય તો બિન-વાહક (લાકડું/ઇન્સ્યુલેટેડ) સાધનથી છૂટો પાડો; સીધો સ્પર્શ ન કરો.
+DOL Starter મુખ્યત્વે કયા મોટર માટે વપરાય છે?|મોટા ઇન્ડક્શન મોટર|નાના સાઇઝના ઇન્ડક્શન મોટર|DC મોટર|સર્વો મોટર|2|DOLમાં સ્ટાર્ટિંગ કરંટ 6–8 ગણો હોવાથી માત્ર નાની મોટર માટે.
+હિસ્ટેરિસિસ નુકસાન ઘટાડવા માટે ટ્રાન્સફોર્મર કોર કયા મટિરિયલથી બનાવવામાં આવે છે?|હાઈ રેઝિસ્ટન્સ વાઇન્ડિંગ|લેમિનેટેડ કોર|સિલિકોન સ્ટીલ કોર|ફ્રિક્વન્સી વધારવી|3|સિલિકોન સ્ટીલનો હિસ્ટેરિસિસ લૂપ નાનો ⇒ ઓછો લોસ. (લેમિનેશન એડી કરંટ ઘટાડે.)
+DC જનરેટરમાં ઉત્પન્ન થતો Induced EMF કયા નિયમ પર આધારિત છે?|કિર્ચોફનો નિયમ|લેન્ઝનો નિયમ|ઓહ્મનો નિયમ|ફેરાડેનો વિદ્યુતચુંબકીય પ્રેરણાનો નિયમ|4|e = −dΦ/dt; કન્ડક્ટર ફ્લક્સ કાપે ત્યારે EMF પ્રેરાય.
+મલ્ટિમીટર વડે શું માપી શકાય?|માત્ર વોલ્ટેજ|માત્ર કરંટ|માત્ર પ્રતિરોધ|વોલ્ટેજ, કરંટ અને પ્રતિરોધ|4|મલ્ટિમીટર = V, I, R (AVO મીટર) માપે.
+ટ્રાન્સફોર્મરમાં ઓઇલની એસિડિટી વધારે હોય, તો શું અસર થાય છે?|ઇન્સ્યુલેશન ખરાબ થાય|કાર્યક્ષમતા વધે|કુલિંગ સુધરે|વોલ્ટેજ રેગ્યુલેશન સારું થાય|1|એસિડ/સ્લજ ઇન્સ્યુલેશન અને વાઇન્ડિંગને નુકસાન કરે.
+Star-Delta Starterમાં Delta Contactors કેટલા હોય છે?|1|2|3|4|3|આપેલ ચાવી C. ⚠ નોંધ: સામાન્ય રીતે Main, Star, Delta – એમ 3 કોન્ટેક્ટર હોય, Delta contactor 1 હોય.
+DC મોટરમાં ટોર્ક કોના પર આધારિત છે?|વોલ્ટેજ પર|કરંટ અને ફ્લક્સ પર|રેઝિસ્ટન્સ પર|સ્પીડ પર|2|T ∝ Φ·Ia.
+અલ્ટરનેટરમાં આઇસોલેટર ક્યારે ઓપરેટ થાય છે?|લોડ સાથે|નો-લોડ કન્ડિશનમાં|ફોલ્ટ કન્ડિશન સમયે|ફ્રિક્વન્સી બદલવાના સમયે|2|આઇસોલેટર આર્ક-બુઝાવવાની ક્ષમતા વગરનું હોવાથી માત્ર નો-લોડ/ઓફ-લોડ ખોલાય.
+ટ્રાન્સમિશન લાઇનમાં 'રેગ્યુલેશન ઇફેક્ટ' મુખ્યત્વે ક્યારે જોવા મળે છે?|હેવી લોડ કન્ડિશનમાં|નો-લોડ અથવા લાઇટ લોડ કન્ડિશનમાં|બેલેન્સ્ડ લોડ કન્ડિશનમાં|શોર્ટ કન્ડિશનમાં|2|આપેલ ચાવી મુજબ B (નો-લોડ/લાઇટ લોડે વોલ્ટેજ વધવાનો ફેરેન્ટી ઇફેક્ટ સંદર્ભ).
+ઇલેક્ટ્રિકલ કામ દરમિયાન કયા સુરક્ષા સાધનોનો ઉપયોગ કરવો જોઈએ?|રબરના હાથમોજાં|કપાસના હાથમોજાં|ચામડાના હાથમોજાં|કોઈપણ હાથમોજાં|1|રબર (ઇન્સ્યુલેટિંગ) ગ્લોવ્ઝ વીજ આંચકાથી રક્ષણ આપે.
+વોલ્ટમીટર પરિપથમાં કેવી રીતે જોડાય છે?|શ્રેણીમાં|સમાંતરમાં|ખુલ્લા પરિપથમાં|અર્થિંગ સાથે|2|વોલ્ટેજ બે બિંદુ વચ્ચે માપાય ⇒ સમાંતર; એમીટર શ્રેણીમાં.
+વિદ્યુત ઊર્જા સામાન્ય રીતે કયા એકમમાં માપવામાં આવે છે?|kWh|વોલ્ટ|એમ્પિયર|ઓહ્મ|1|વ્યાવહારિક એકમ kWh (1 યુનિટ).
+MCBનું પૂર્ણ સ્વરૂપ શું છે?|Main Circuit Board|Mini Circuit Breaker|Miniature Circuit Breaker|Main Control Breaker|3|MCB = Miniature Circuit Breaker.
+સ્વિચગિયર સિસ્ટમમાં 'બસબાર'નું કાર્ય શું છે?|પાવર ફેક્ટર સુધારવું|વોલ્ટેજ નિયંત્રણ કરવું|ફ્રિક્વન્સી બદલવી|કરંટ વહન કરવો|4|બસબાર કોપર/એલ્યુમિનિયમની પટ્ટી છે જે ઘણા ફીડરો વચ્ચે કરંટ વહેંચે/વહન કરે.
+પ્રિન્ટેડ પરિપથોમાં ઇન્સ્યુલેશન રેઝિસ્ટન્સ ટેસ્ટ કયા ઉપકરણથી કરવામાં આવે છે?|મલ્ટિમીટર|મેગર|એમીટર|વોલ્ટમીટર|2|મેગર (મેગોહ્મમીટર) ઊંચા DC વોલ્ટેજ (500 V/1 kV) આપી ઇન્સ્યુલેશન R માપે.
+સ્ટ્રીટ લાઇટિંગમાં 'લક્સ' શું માપે છે?|વોલ્ટેજ|પાવર|કરંટ|પ્રકાશની તીવ્રતા|4|લક્સ = lumen/m² – સપાટી પરની પ્રકાશની તીવ્રતા (illuminance).
+20 Ω પ્રતિરોધમાં 2 A પ્રવાહ વહેતો હોય તો શક્તિ કેટલી હશે?|20 W|40 W|80 W|100 W|3|P = I²R = 2² × 20 = 80 W.
+Relay મુખ્યત્વે કયા સિદ્ધાંત પર કાર્ય કરે છે?|ઇલેક્ટ્રોમેગ્નેટિક સિદ્ધાંત|ગરમી|પ્રકાશ|દબાણ|1|કોઇલ ઊર્જિત થતાં ચુંબકીય બળથી આર્મેચર ખેંચાઈ સંપર્ક બદલે.
+શોર્ટ સર્કિટિંગમાં ઇન્સ્યુલેશન ટેસ્ટ કયા ઉપકરણથી કરવામાં આવે છે?|એમીટર|મેગર|મલ્ટિમીટર|વોલ્ટમીટર|3|આપેલ ચાવી C. (શોર્ટ/કન્ટિન્યુઇટી ચકાસણી મલ્ટિમીટરથી; ઊંચા ઇન્સ્યુલેશન માટે મેગર.)
+ટ્રાન્સમિશન લાઇનમાં 'સ્કિન ઇફેક્ટ' કયા પરિસ્થિતિમાં વધારે જોવા મળે છે?|લો ફ્રિક્વન્સી|હાઈ ફ્રિક્વન્સી|DC સપ્લાય|બેલેન્સ્ડ લોડ|2|ફ્રિક્વન્સી વધે તેમ AC કરંટ કન્ડક્ટરની સપાટી તરફ ખેંચાય; DCમાં નહીં.
+1 kWh બરાબર કેટલા જૂલ થાય?|3.6 × 10⁶ J|360 J|3600 J|36,000 J|1|1 kWh = 1000 W × 3600 s = 3.6×10⁶ J.
+આર્મેચર રિએક્શન સુધારવાનો મુખ્ય લાભ શું છે?|ઓછી કિંમત|ઊર્જા લોસમાં ઘટાડો અને સ્થિર કામગીરી|સરળ ઇન્સ્ટોલેશન|ઓછી જગ્યા|2|કમ્પેન્સેશન/ઇન્ટરપોલથી સ્પાર્કિંગ અને ફ્લક્સ વિકૃતિ ઘટે ⇒ સ્થિર કામગીરી.
+100 V પરિપથમાં 5 A પ્રવાહ વહેતો હોય તો પ્રતિરોધ કેટલો હશે?|10 Ω|20 Ω|25 Ω|50 Ω|2|R = V/I = 100/5 = 20 Ω.
+નીચેનામાંથી કયા પદાર્થની વિદ્યુત વાહકતા વધારે છે?|એલ્યુમિનિયમ|તાંબું|લોખંડ|સીસું|2|આપેલ વિકલ્પોમાં તાંબાનો વિશિષ્ટ અવરોધ સૌથી ઓછો ⇒ વાહકતા વધુ.
+નીચેનામાંથી કયો વિષય GPMC Act હેઠળ આવે છે?|જાહેર આરોગ્ય, સફાઈ અને પાણી પુરવઠો|વિદેશી વેપાર|સંરક્ષણ સેવા|વ્યાજદર|1|GPMC Act મહાનગરપાલિકાની ફરજો – આરોગ્ય, સફાઈ, પાણી, રસ્તા વગેરે.
+AC સર્કિટમાં ઇન્ડક્ટન્સ કરંટ વોલ્ટેજની સરખામણીમાં કેવી રીતે રહે છે?|આગળ રહે છે|પાછળ રહે છે (Lags)|સમાન રહે છે|શૂન્ય રહે છે|2|શુદ્ધ ઇન્ડક્ટરમાં કરંટ વોલ્ટેજથી 90° પાછળ (ELI). કેપેસિટરમાં આગળ (ICE).
+PMMC Instrument મુખ્યત્વે કયા પ્રકારનો કરંટ માપે છે?|AC|DC|AC અને DC બંને|ત્રણ-ફેઝ AC|2|કાયમી ચુંબક હોવાથી ડિફ્લેક્શન કરંટની દિશા પર આધારિત ⇒ માત્ર DC.
+ઘરેલું વાયરિંગમાં MCBનો મુખ્ય હેતુ શું છે?|વોલ્ટેજ નિયંત્રણ|ઓવરકરંટ પ્રોટેક્શન|ફ્રિક્વન્સી કંટ્રોલ|પાવર ફેક્ટર સુધારવું|2|MCB ઓવરલોડ અને શોર્ટ સર્કિટ (ઓવરકરંટ) સામે ટ્રિપ થાય.
+અલ્ટરનેટર કયા પ્રકારની વિદ્યુત શક્તિ ઉત્પન્ન કરે છે?|DC પાવર|AC પાવર|મિશ્ર પાવર|કોઈ નહીં|2|અલ્ટરનેટર = AC જનરેટર.
+ડી.સી. ઇન્ડક્શન મોટર સેલ્ફ સ્ટાર્ટ ન થવાનું મુખ્ય કારણ શું છે?|ઉચ્ચ સ્ટેટર રેઝિસ્ટન્સ પર|પલ્સેટિંગ ચુંબકીય ક્ષેત્ર|ઓછી ફ્રિક્વન્સી પર|ઉચ્ચ યાંત્રિક કરંટ પર|2|આપેલ ચાવી B. ⚠ નોંધ: સિંગલ-ફેઝ ઇન્ડક્શન મોટર પલ્સેટિંગ ફીલ્ડથી સેલ્ફ-સ્ટાર્ટ ન થાય; 'ડી.સી. ઇન્ડક્શન' શબ્દ ભૂલભર્યો જણાય.
+Interlockingનો મુખ્ય હેતુ શું છે?|બે Contactorsને એકસાથે ON થવાથી અટકાવવું|કરંટ વધારવો|વોલ્ટેજ ઘટાડવું|મોટરની ગતિ વધારવી|1|જેમ કે સ્ટાર અને ડેલ્ટા એકસાથે ચાલુ થાય તો શોર્ટ સર્કિટ થાય – તે અટકાવે.
+Control Circuit સામાન્ય રીતે કયા વોલ્ટેજ પર કાર્ય કરે છે?|Low Voltage|High Voltage|Extra High Voltage|Ultra High Voltage|1|કંટ્રોલ સર્કિટ સલામતી માટે લો વોલ્ટેજ (24 V/110 V/230 V) પર.
+DC મોટરમાં બેક EMF ક્યારે ઉત્પન્ન થાય છે?|મોટર બંધ હોય ત્યારે|મોટર ચાલતી વખતે|મોટર ઓવરલોડ હોય ત્યારે|મોટર નો-લોડ પર હોય ત્યારે|2|આર્મેચર ફરે ત્યારે ફ્લક્સ કપાવાથી પ્રેરિત EMF સપ્લાયનો વિરોધ કરે (Eb ∝ N).
+AC સર્કિટમાં ઇમ્પીડન્સ Z શું દર્શાવે છે?|માત્ર પ્રતિરોધ|માત્ર રિએક્ટન્સ|પ્રતિરોધ અને પ્રતિક્રિયાત્મક અવરોધનું સંયોજન|શક્તિ ગુણાંક|3|Z = √(R² + X²) – R અને Xનું સંયોજન.
+જો પ્રતિરોધ બમણો થાય અને વોલ્ટેજ સ્થિર રહે તો પ્રવાહ શું થશે?|બમણો થશે|અડધો થશે|ચાર ગણો થશે|બદલાશે નહીં|2|I = V/R ⇒ R બમણો તો I અડધો.
+બ્રેકડાઉન મેઇન્ટેનન્સની મુખ્ય ખામી શું છે?|ઓછો ખર્ચ|સરળ પ્લાનિંગ|વધુ ડાઉનટાઇમ|વધુ વિશ્વસનીયતા|3|ખરાબી થયા પછી સમારકામ થાય ⇒ અચાનક બંધ પડવું, ઉત્પાદન નુકસાન, વધુ ડાઉનટાઇમ.
+એમીટરનું આંતરિક પ્રતિરોધ કેવું હોવું જોઈએ?|ખૂબ વધારે|ખૂબ ઓછું|અનંત|મધ્યમ|2|શ્રેણીમાં જોડાતું હોવાથી સર્કિટનો કરંટ ન બદલે તે માટે R ખૂબ ઓછો (આદર્શ 0).
+શોર્ટ સર્કિટ થતા મુખ્યત્વે શું થાય છે?|કરંટ વધે|વોલ્ટેજ વધે|ફ્રિક્વન્સી ઘટે|રેઝિસ્ટન્સ વધે|1|R લગભગ શૂન્ય ⇒ I = V/R અત્યંત વધે.
+મ્યુનિસિપલ કોર્પોરેશનનો મુખ્ય વહીવટી અધિકારી કોણ છે?|મેયર|મ્યુનિસિપલ કમિશનર|કલેક્ટર|મુખ્યમંત્રી|2|કમિશનર વહીવટી વડા; મેયર ચૂંટાયેલા પ્રતિનિધિ/નાગરિક વડા.
+કેબલ ફોલ્ટ ટેસ્ટમાં 'મેગર'નો ઉપયોગ શા માટે થાય છે?|ઇન્સ્યુલેશન ચકાસવા|વોલ્ટેજ માપવા|કરંટ માપવા|ઇમ્પીડન્સ રેઝિસ્ટન્સ માપવા|1|મેગર ઊંચા DC વોલ્ટેજથી ઇન્સ્યુલેશન રેઝિસ્ટન્સ ચકાસે.
+GPMCનું સંપૂર્ણ નામ શું છે?|Gujarat Public Municipal Council|Gujarat Provincial Municipal Corporations Act|Gujarat Panchayat Municipal Code|Gujarat Public Management Committee|2|GPMC = Gujarat Provincial Municipal Corporations Act, 1949.
+AC સર્કિટમાં V = 230 V, I = 10 A અને PF = 0.9 હોય, તો Real Power કેટલી?|1800 W|2070 W|2300 W|2400 W|2|P = VI cosφ = 230 × 10 × 0.9 = 2070 W.
+NC Contactનો અર્થ શું છે?|Normally Connected|Normally Closed|Neutral Closed|New Contact|2|NC = Normally Closed (સામાન્ય સ્થિતિમાં બંધ સંપર્ક); NO = Normally Open.
+ઊર્જાનું SI એકમ શું છે?|વોટ|જૂલ|એમ્પિયર|વોલ્ટ|2|ઊર્જાનું SI એકમ જૂલ; વોટ = પાવર (J/s).
+500 W ઉપકરણ 4 કલાક ચાલે તો કેટલો ઊર્જા વપરાશ થશે?|0.5 kWh|1 kWh|2 kWh|4 kWh|3|E = 0.5 kW × 4 h = 2 kWh.
+સ્ટ્રીટ લાઇટિંગમાં વીજ બચત માટે કયું ઉપકરણ વપરાય છે?|કેપેસિટર|ટ્રાન્સફોર્મર|સ્માર્ટ સ્વિચ|ઓવરલોડ રિલે|3|સ્માર્ટ સ્વિચ/ટાઇમર/LDR જરૂર મુજબ લાઇટ ચાલુ-બંધ કરી ઊર્જા બચાવે.
+ઓપરેટર રિલેનું મુખ્ય કાર્ય શું છે?|વોલ્ટેજ માપવું|પાવર ફેક્ટર સુધારવું|ફ્રિક્વન્સી કંટ્રોલ કરવું|ફોલ્ટ કરંટ શોધવું|4|રિલે ફોલ્ટ કરંટ ઓળખી બ્રેકરને ટ્રિપ સિગ્નલ મોકલે.
+100 Ω નો રેઝિસ્ટર 20 V સપ્લાય સાથે જોડાય, તો કરંટ કેટલો હશે?|0.5 એમ્પિયર|2 એમ્પિયર|5 એમ્પિયર|0.2 એમ્પિયર|4|I = V/R = 20/100 = 0.2 A.
+અર્થિંગ રેઝિસ્ટન્સ સામાન્ય રીતે કેટલો ઓછો હોવો જોઈએ?|50 Ω|10 Ω|5 Ω|1 Ω અથવા તેનાથી ઓછો|4|આપેલ ચાવી મુજબ ≤ 1 Ω (મોટા સ્ટેશન/સબસ્ટેશન માટે). સામાન્ય ઇન્સ્ટોલેશનમાં વધુ મૂલ્ય પણ માન્ય.
+સર્કિટ બ્રેકર 'ટ્રિપિંગ કર્વ' શું દર્શાવે છે?|વોલ્ટેજ-કરંટ સંબંધ|કરંટ-સમય સંબંધ|પાવર-ફ્રિક્વન્સી સંબંધ|લોડ-વોલ્ટેજ સંબંધ|2|કરંટ કેટલો વધે ત્યારે કેટલા સમયમાં ટ્રિપ થશે તે દર્શાવતો આલેખ (B, C, D કર્વ).
+PPEનું પૂર્ણ સ્વરૂપ શું છે?|Personal Protection Equipment|Personal Protective Equipment|Power Protection Equipment|Personal Power Equipment|2|PPE = Personal Protective Equipment (હેલ્મેટ, ગ્લોવ્ઝ, શૂઝ વગેરે).`;
+const Q=RAW.split('\n').map(l=>{const p=l.split('|');return{q:p[0],o:p.slice(1,5),k:+p[5],s:p[6]}});
+const KEY=Q.map(x=>x.k);
+const START_AT=new Date('2026-11-21T14:00:00+05:30').getTime();
+const TOTAL=6000,N=Q.length;
+const $=id=>document.getElementById(id),L='ABCD';
+let ans=Array(N).fill(0),mk=Array(N).fill(false),seen=Array(N).fill(false),spent=Array(N).fill(0);
+let cur=0,left=TOTAL,iv=null,qStart=0,name='',done=false;
+const pad=n=>String(n).padStart(2,'0'),fmt=s=>pad(Math.floor(s/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60);
+const fm=s=>s>=60?Math.floor(s/60)+'મિ '+pad(s%60)+'સે':s+'સે';
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+$('go').onclick=()=>{if(Date.now()<START_AT){gate();return}name=$('nm').value.trim();$('start').classList.add('hide');$('test').classList.remove('hide');
+  buildPal();show(0);const end=Date.now()+TOTAL*1000;
+  iv=setInterval(()=>{left=Math.max(0,Math.round((end-Date.now())/1000));tick();if(left<=0)finish(true)},500);tick();};
+
+function gate(){const d=START_AT-Date.now(),b=$('go'),a=$('avail');
+  if(d>0){b.disabled=true;const t=Math.ceil(d/1000),dd=Math.floor(t/86400);
+    a.innerHTML='🔒 ટેસ્ટ <b>21 નવેમ્બર 2026, બપોરે 2:00 વાગ્યે (IST)</b> પછી જ શરૂ થશે.<br>શરૂ થવામાં બાકી: <b>'+(dd?dd+' દિવસ ':'')+fmt(t%86400)+'</b>'}
+  else{b.disabled=false;a.innerHTML='✅ ટેસ્ટ હવે ઉપલબ્ધ છે. શુભેચ્છાઓ!'}}
+gate();const gv=setInterval(()=>{gate();if(Date.now()>=START_AT)clearInterval(gv)},1000);
+function tick(){const t=$('tm');t.textContent=fmt(left);t.className='timer'+(left<=300?' crit':left<=900?' low':'')}
+function leave(){spent[cur]+=Math.round((Date.now()-qStart)/1000)}
+function show(i){if(done)return;if(qStart)leave();cur=i;qStart=Date.now();seen[i]=true;draw()}
+function draw(){const q=Q[cur];
+  $('qc').innerHTML=`<div class="qh"><b>પ્રશ્ન ${cur+1} / ${N}</b><span>${mk[cur]?'🔖 Review માટે ચિહ્નિત':''}</span></div>
+  <p class="qt">${esc(q.q)}</p>`+q.o.map((o,k)=>`<button class="opt${ans[cur]==k+1?' sel':''}" data-k="${k+1}"><span class="k">${L[k]}</span><span>${esc(o)}</span></button>`).join('')+
+  `<div class="acts"><button class="btn" id="pv" ${cur==0?'disabled':''}>← પાછળ</button>
+  <button class="btn bad" id="cl">Clear</button><button class="btn rev" id="mr">${mk[cur]?'Unmark':'Mark for Review'}</button><span class="sp"></span>
+  <button class="btn pri" id="nx">${cur==N-1?'સેવ':'સેવ અને આગળ →'}</button></div>`;
+  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ans[cur]=ans[cur]==+b.dataset.k?0:+b.dataset.k;draw();upPal()});
+  $('pv').onclick=()=>show(cur-1);$('nx').onclick=()=>cur<N-1?show(cur+1):draw();
+  $('cl').onclick=()=>{ans[cur]=0;draw();upPal()};$('mr').onclick=()=>{mk[cur]=!mk[cur];draw();upPal()};upPal()}
+function buildPal(){$('pg').innerHTML=Q.map((_,i)=>`<button class="n" data-i="${i}">${i+1}</button>`).join('');
+  document.querySelectorAll('#pg .n').forEach(b=>b.onclick=()=>show(+b.dataset.i))}
+function counts(){const a=ans.filter(x=>x).length;return{a,r:mk.filter(x=>x).length,u:N-a}}
+function upPal(){document.querySelectorAll('#pg .n').forEach((b,i)=>{b.className='n'+(mk[i]?' mk':ans[i]?' ans':seen[i]?' seen':'')+(i==cur?' cur':'')});
+  const c=counts();$('ps').innerHTML=`<span>જવાબ આપ્યા</span><b>${c.a}</b><span>બાકી</span><b>${c.u}</b><span>Review</span><b>${c.r}</b>`}
+function modal(h){$('mb').innerHTML=h;$('modal').classList.remove('hide')}function close(){$('modal').classList.add('hide')}
+$('sub').onclick=()=>{const c=counts();modal(`<h3>ટેસ્ટ સબમિટ કરવો છે?</h3><div class="sum"><span>જવાબ આપ્યા</span><b>${c.a}</b><span>બાકી</span><b>${c.u}</b><span>Review ચિહ્નિત</span><b>${c.r}</b><span>બાકી સમય</span><b>${fmt(left)}</b></div><p style="color:var(--mut);margin:0">સબમિટ પછી જવાબ બદલી શકાશે નહીં.</p><div class="r"><button class="btn" id="mc">પાછા જાઓ</button><button class="btn pri" id="mo">હા, સબમિટ કરો</button></div>`);
+  $('mc').onclick=close;$('mo').onclick=()=>finish(false)};
+document.addEventListener('keydown',e=>{if(done||$('test').classList.contains('hide')||!$('modal').classList.contains('hide'))return;
+  if(e.key=='ArrowRight'&&cur<N-1)show(cur+1);else if(e.key=='ArrowLeft'&&cur>0)show(cur-1);else if('1234'.includes(e.key)&&e.key){ans[cur]=ans[cur]==+e.key?0:+e.key;draw()}});
+addEventListener('beforeunload',e=>{if(iv&&!done){e.preventDefault();e.returnValue=''}});
+
+function finish(auto){if(done)return;leave();done=true;clearInterval(iv);iv=null;close();
+  $('test').classList.add('hide');$('res').classList.remove('hide');scrollTo(0,0);result(auto)}
+let filter='all',R;
+function result(auto){
+  let c=0,w=0,s=0;const st=ans.map((a,i)=>!a?'s':a==KEY[i]?'c':'w');st.forEach(x=>x=='c'?c++:x=='w'?w++:s++);
+  const att=c+w,pct=Math.round(c/N*100),acc=att?Math.round(c/att*100):0,used=TOTAL-left;
+  const grade=pct>=80?'ઉત્કૃષ્ટ પ્રદર્શન 🏆':pct>=60?'સરસ પ્રયાસ 👍':pct>=40?'સરેરાશ – વધુ પ્રેક્ટિસની જરૂર':'વધુ તૈયારીની જરૂર – હાર ન માનો 💪';
+  const top=Q.map((_,i)=>i).sort((a,b)=>spent[b]-spent[a]).slice(0,5);
+  const bar=(l,v,col,extra='')=>`<div class="bar"><div class="l"><span>${l}</span><b>${v}${extra}</b></div><div class="tr"><i style="width:${v/N*100}%;background:${col}"></i></div></div>`;
+  $('res').innerHTML=`<div class="card hero" style="position:relative"><div class="ring" style="--p:${pct}"><div><span><b>${c}</b><small>/ ${N}</small></span></div></div>
+  <div style="flex:1;min-width:240px"><h2 style="margin:0">${name?esc(name)+', ':''}તમારું પરિણામ</h2><p style="margin:4px 0 14px;color:var(--mut)">${grade}${auto?' • સમય પૂરો થતાં આપમેળે સબમિટ':''}</p></div>
+  <div class="kp"><div class="stat g"><b>${c}</b><span>સાચા</span></div><div class="stat r"><b>${w}</b><span>ખોટા</span></div><div class="stat y"><b>${s}</b><span>છોડેલા</span></div><div class="stat"><b>${pct}%</b><span>સ્કોર</span></div><div class="stat"><b>${acc}%</b><span>ચોકસાઈ (Accuracy)</span></div><div class="stat"><b>${fm(used)}</b><span>વપરાયેલ સમય</span></div></div></div>
+  <div class="card sec"><h3>📊 વિશ્લેષણ</h3><div class="bars">${bar('સાચા',c,'var(--ok)')}${bar('ખોટા',w,'var(--bad)')}${bar('છોડેલા',s,'var(--warn)')}</div>
+  <p style="color:var(--mut);margin:14px 0 0">પ્રયાસ કરેલા ${att} પ્રશ્નોમાંથી ${c} સાચા. સરેરાશ સમય પ્રતિ પ્રશ્ન: <b>${fm(Math.round(used/N))}</b>. ${s>0?`${s} પ્રશ્નો છોડ્યા – બાકી પ્રશ્નો માટે યોગ્ય અનુમાન અજમાવો.`:'બધા પ્રશ્નોનો પ્રયાસ કર્યો – શાબાશ!'} ${w>c&&att?'ખોટા જવાબો વધુ છે – ખ્યાલો ફરી વાંચો.':''}</p>
+  <h4 style="margin:18px 0 8px">સૌથી વધુ સમય લીધેલા પ્રશ્નો</h4><div style="display:flex;gap:8px;flex-wrap:wrap">${top.map(i=>`<button class="btn" onclick="jump(${i})">પ્ર. ${i+1} • ${fm(spent[i])}</button>`).join('')}</div>
+  <h4 style="margin:18px 0 8px">પ્રશ્ન-વાર નકશો</h4><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(42px,1fr))">${st.map((x,i)=>`<button class="n ${x}" onclick="jump(${i})">${i+1}</button>`).join('')}</div></div>
+  <div class="card sec"><h3>📝 ઉત્તર સમીક્ષા (સાચા જવાબો સાથે)</h3><div class="tabs">${[['all','બધા'],['c','સાચા'],['w','ખોટા'],['s','છોડેલા']].map(([k,t])=>`<button class="btn tb" data-f="${k}">${t}</button>`).join('')}</div><div id="rv"></div></div>
+  <div style="text-align:center;margin:20px 0 40px"><button class="btn pri big" onclick="location.reload()">🔁 ફરી ટેસ્ટ આપો</button> <button class="btn big" onclick="print()">🖨 પ્રિન્ટ</button></div>`;
+  R=st;document.querySelectorAll('.tb').forEach(b=>b.onclick=()=>{filter=b.dataset.f;rev()});rev()}
+function rev(){document.querySelectorAll('.tb').forEach(b=>b.classList.toggle('on',b.dataset.f==filter));
+  $('rv').innerHTML=Q.map((q,i)=>{if(filter!='all'&&R[i]!=filter)return'';const tg={c:'સાચો',w:'ખોટો',s:'છોડેલો'}[R[i]];
+  return `<div class="card rq" id="rq${i}"><div class="qh"><b>પ્રશ્ન ${i+1}<span class="tag ${R[i]}">${tg}</span></b><span>⏱ ${fm(spent[i])}</span></div><p class="qt">${esc(q.q)}</p>`+
+  q.o.map((o,k)=>{const n=k+1,cl=n==KEY[i]?'ok':n==ans[i]?'no':'';return `<div class="opt static ${cl}"><span class="k">${L[k]}</span><span>${esc(o)}${n==KEY[i]?' ✔ <b>સાચો જવાબ</b>':''}${n==ans[i]&&n!=KEY[i]?' ✘ <b>તમારો જવાબ</b>':''}</span></div>`}).join('')+
+  `<div style="color:var(--mut);font-size:.9rem;margin-top:8px">સાચો જવાબ: <b>${L[KEY[i]-1]}</b> • તમારો જવાબ: <b>${ans[i]?L[ans[i]-1]:'—'}</b></div><div class="note" style="margin-top:10px;background:var(--okB);border-left:4px solid var(--ok);padding:9px 12px;border-radius:8px">💡 <b>ઉકેલ:</b> ${esc(q.s)}</div></div>`}).join('')||'<p style="color:var(--mut)">આ શ્રેણીમાં કોઈ પ્રશ્ન નથી.</p>'}
+function jump(i){filter='all';rev();document.getElementById('rq'+i).scrollIntoView({behavior:'smooth',block:'center'})}
+</script></body></html>
